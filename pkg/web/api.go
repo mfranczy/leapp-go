@@ -22,7 +22,7 @@ type MigrateParams struct {
 func MigrateMachine(request *http.Request) (interface{}, error) {
 	var (
 		migrateParams MigrateParams
-		data          interface{}
+		result        interface{}
 	)
 
 	if err := json.NewDecoder(request.Body).Decode(&migrateParams); err != nil {
@@ -34,11 +34,9 @@ func MigrateMachine(request *http.Request) (interface{}, error) {
 	output_mock := []byte("{\"foo\": \"bar\"}")
 	// return result to client
 
-	if err := json.Unmarshal(output_mock, &data); err != nil {
+	if err := json.Unmarshal(output_mock, &result); err != nil {
 		return nil, err
 	}
 
-	result := data.(map[string]interface{})
 	return result, nil
-
 }
